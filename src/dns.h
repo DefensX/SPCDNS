@@ -1033,7 +1033,7 @@ typedef struct dns_query_t      /* RFC-1035 */
 /**********************************************************************/
 
 extern dns_rcode_t dns_encode(dns_packet_t  *,size_t *,const dns_query_t *)         __attribute__ ((nothrow,nonnull));
-extern dns_rcode_t dns_decode(dns_decoded_t *,size_t *,const dns_packet_t *,size_t) __attribute__ ((nothrow,nonnull(1,2,3)));
+extern dns_rcode_t dns_decode(dns_decoded_t *,size_t *,const dns_packet_t *,size_t *) __attribute__ ((nothrow,nonnull(1,2,3,4)));
 
 #ifdef __cplusplus
    }

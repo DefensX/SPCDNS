@@ -2097,7 +2097,7 @@ static dns_rcode_t decode_answer(
 
 /***********************************************************************/
 
-dns_rcode_t dns_decode(dns_decoded_t *presponse,size_t *prsize,dns_packet_t const *buffer,size_t len)
+dns_rcode_t dns_decode(dns_decoded_t *presponse,size_t *prsize,dns_packet_t const *buffer,size_t *plen)
 {
   struct idns_header const *header;
   dns_query_t              *response;
@@ -2108,14 +2108,15 @@ dns_rcode_t dns_decode(dns_decoded_t *presponse,size_t *prsize,dns_packet_t cons
   assert(prsize    != NULL);
   assert(*prsize   >= sizeof(dns_query_t));
   assert(buffer    != NULL);
+  assert(plen    != NULL);
   
-  if (len < sizeof(struct idns_header))
+  if (*plen < sizeof(struct idns_header))
     return RCODE_FORMAT_ERROR;
     
   context.packet.ptr  = (uint8_t *)buffer;
-  context.packet.size = len;
+  context.packet.size = *plen;
   context.parse.ptr   = &context.packet.ptr[sizeof(struct idns_header)];
-  context.parse.size  = len - sizeof(struct idns_header);
+  context.parse.size  = *plen - sizeof(struct idns_header);
   context.dest.ptr    = (uint8_t *)presponse;
   context.dest.size   = *prsize;
   context.edns        = false;
