@@ -2205,6 +2205,7 @@ dns_rcode_t dns_decode(dns_decoded_t *presponse,size_t *prsize,dns_packet_t cons
   }
   
   *prsize = (size_t)(context.dest.ptr - (uint8_t *)presponse);
+  *plen   = (size_t)(context.parse.ptr - context.packet.ptr);
   return RCODE_OKAY;
 }
 
